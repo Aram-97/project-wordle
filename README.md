@@ -1,5 +1,11 @@
 # Word Game
 
+## Solution
+
+Completed all 5 exercises + 2 stretch goals
+
+![Screenshot of the solution](docs/solution.png)
+
 ## Joy of React, Project I
 
 In this project, we'll recreate a popular online word game, Wordle:
