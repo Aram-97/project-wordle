@@ -85,6 +85,7 @@ h1 {
 
 .guess-results {
   flex: 1;
+  gap: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,7 +94,6 @@ h1 {
 .guess {
   display: flex;
   gap: 4px;
-  margin-bottom: 4px;
 }
 
 .cell {
@@ -102,8 +102,9 @@ h1 {
   display: grid;
   place-content: center;
   aspect-ratio: 1 / 1;
-  border: 2px solid var(--color-gray-700);
   border-radius: var(--radius);
+  border: 2px solid var(--color-gray-700);
+  color: var(--color-gray-100);
   font-size: 2rem;
 }
 
@@ -112,16 +113,16 @@ h1 {
   the game board
 */
 .guess:first-of-type .cell:first-of-type {
-  --radius: 4px 0px 0px 0px;
+  --radius: 8px 0px 0px 0px;
 }
 .guess:first-of-type .cell:last-of-type {
-  --radius: 0px 4px 0px 0px;
+  --radius: 0px 8px 0px 0px;
 }
 .guess:last-of-type .cell:last-of-type {
-  --radius: 0px 0px 4px 0px;
+  --radius: 0px 0px 8px 0px;
 }
 .guess:last-of-type .cell:first-of-type {
-  --radius: 0px 0px 0px 4px;
+  --radius: 0px 0px 0px 8px;
 }
 
 .cell.correct {
@@ -141,24 +142,90 @@ h1 {
 }
 
 .guess-input-wrapper {
+  height: 6rem;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 6.75rem;
 }
 
 .guess-input-wrapper label {
   font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .guess-input-wrapper input {
+  height: 100%;
   display: block;
   width: 100%;
   font-size: 2rem;
   border: 2px solid var(--color-gray-300);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 8px 16px;
   outline-offset: 4px;
+}
+
+.guess-input-wrapper input:disabled {
+  border-color: var(--color-gray-900);
+  cursor: not-allowed;
+}
+
+.game-keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  row-gap: 4px;
+}
+
+.game-keyboard .keyboard-row {
+  display: flex;
+  justify-content: center;
+  column-gap: 4px;
+}
+
+.game-keyboard .keyboard-key {
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-100);
+  user-select: none;
+  cursor: pointer;
+}
+
+.game-keyboard .keyboard-key.action-key {
+  width: 64px;
+}
+
+.game-keyboard .keyboard-key:not(:disabled):hover {
+  transform: scale(1.15);
+}
+
+.game-keyboard .keyboard-key:not(:disabled)[data-pressing="true"] {
+  transform: scale(0.9);
+}
+
+.game-keyboard .keyboard-key:disabled {
+  color: var(--color-gray-700);
+  cursor: not-allowed;
+}
+
+.game-keyboard .keyboard-key.correct {
+  background-color: var(--color-success);
+  color: white;
+}
+.game-keyboard .keyboard-key.incorrect {
+  background-color: var(--color-gray-300);
+  color: white;
+}
+.game-keyboard .keyboard-key.misplaced {
+  background-color: var(--color-warning);
+  color: white;
 }
 
 .banner {
@@ -169,20 +236,55 @@ h1 {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 32px;
+  padding: 20px 32px;
+  color: white;
+  font-size: 18px;
   text-align: center;
-  animation: slideUp 750ms cubic-bezier(0, 0.72, 0.24, 1.02);
-  border-radius: 4px 4px 0px 0px;
+  transform: translateY(100%);
+  transition: transform 750ms cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 16px 16px 0px 0px;
   will-change: transform;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 16px;
 }
 
-.happy.banner {
-  background: var(--color-success);
-  color: white;
+.banner[data-visible="true"] {
+  transform: translateY(0%);
 }
-.sad.banner {
+
+.banner.win {
+  background: var(--color-success);
+}
+
+.banner.lose {
   background: var(--color-error);
-  color: white;
+}
+
+.restart-button {
+  font-size: 16px;
+  padding: 4px 16px;
+  border-radius: 4px;
+  background-color: white;
+  color: var(--color-gray-300);
+  font-weight: bold;
+}
+
+.restart-button:focus-visible {
+  outline-width: 2px;
+  outline-offset: 4px;
+  outline-style: solid;
+  outline-color: white;
+}
+
+.banner.win .restart-button {
+  color: var(--color-success);
+}
+
+.banner.lose .restart-button {
+  color: var(--color-error);
 }
 
 .visually-hidden {
@@ -222,11 +324,11 @@ h1 {
 /*
   Keyframe animations
 */
-@keyframes slideUp {
+/* @keyframes slideUp {
   from {
     transform: translateY(100%);
   }
   to {
     transform: translateY(0%);
   }
-}
+} */
