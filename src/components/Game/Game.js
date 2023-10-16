@@ -4,7 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import GuessInput from "../GuessInput/GuessInput";
 import GuessResults from "../GuessResults/GuessResults";
-import GameOverBanner from "../GameoverBanner/GameoverBanner";
+import GameOverBanner from "../GameOverBanner/GameOverBanner";
 import { GAME_OVER_RESULT, GUESS_CHARACTER_LENGTH, NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import GameKeyboard from "../GameKeyboard/GameKeyboard";
 import { checkGuess } from "../../game-helpers";
